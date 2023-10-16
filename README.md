@@ -11,7 +11,8 @@ A powerfull GUI application to find website hidden directories
 PyQt5: install it py typing $ pip install PyQt5==5.7.1
 
 <h1 align="left">Usage</h1>
-<video src="https://user-images.githubusercontent.com/aaa.mp4"></video>
+
+<video src="[https://user-images.githubusercontent.com/aaa.mp4](https://raw.githubusercontent.com/mhroot/fuckHiddenDirs/main/1.mp4)"></video>
 
 <p align="left">
 </p>
