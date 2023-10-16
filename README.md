@@ -2,9 +2,7 @@
 <h3 align="center">Egyption programmer</h3>
 <h1 align=
 
-https://github.com/mhroot/fuckHiddenDirs/assets/74712807/4d535381-c290-4720-90fb-5c141746c184
-
-"left">FuckHiddenDirs</h1>
+<h1 "left">FuckHiddenDirs</h1>
 A powerfull GUI application to find website hidden directories
 <h1 align="left">Features</h1>
 - Easy to use<br>
@@ -16,7 +14,7 @@ PyQt5: install it py typing $ pip install PyQt5==5.7.1
 
 <h1 align="left">Usage</h1>
 
-<video src="[https://user-images.githubusercontent.com/aaa.mp4](https://raw.githubusercontent.com/mhroot/fuckHiddenDirs/main/1.mp4)"></video>
+<video src="https://github.com/mhroot/fuckHiddenDirs/assets/74712807/4d535381-c290-4720-90fb-5c141746c184"></video>
 
 <p align="left">
 </p>
