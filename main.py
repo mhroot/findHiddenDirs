@@ -46,6 +46,8 @@ class bruteForceDirctories(QtCore.QThread):
         self.headers = header
         self.threaders = threaders
         self.final_Result = []
+        self.statusCde = []
+        self.finallList = []
     def run(self):    
         dirs = self.wList
         futures = []
@@ -54,17 +56,12 @@ class bruteForceDirctories(QtCore.QThread):
                 futures.append(executor.submit(self.scan,self.url,''.join(dirr.split('\n'))))
             for i in as_completed(futures):
                 i = i
-        finall = '\n'.join(str(v) for v in self.final_Result)
-        if finall:
-            self.resultReady.emit(f"{finall}")
-
     def scan(self, url , theDir):
         if self.headers == None:
             r = get(url+theDir,timeout=10 )
         else:
             r = get(url+theDir,headers=self.headers , timeout=10)
-        if r.status_code == 200 or r.status_code == 403 or r.status_code == 401:
-            self.final_Result.append(f"{url}{theDir} : {r.status_code}")
+        if r.status_code != 404:
             self.resultReady.emit(f"{url}{theDir} : {r.status_code}")
 
 class Ui_MainWindow(object):
@@ -81,62 +78,86 @@ class Ui_MainWindow(object):
         self.frame.setObjectName("frame")
         self.gridLayout = QtWidgets.QGridLayout(self.frame)
         self.gridLayout.setObjectName("gridLayout")
-        self.lineEdit = QtWidgets.QLineEdit(self.frame)
-        self.lineEdit.setObjectName("lineEdit")
-        self.gridLayout.addWidget(self.lineEdit, 0, 2, 1, 2)
-        self.label_2 = QtWidgets.QLabel(self.frame)
-        self.label_2.setObjectName("label_2")
-        self.gridLayout.addWidget(self.label_2, 1, 0, 1, 1)
         self.pushButton_2 = QtWidgets.QPushButton(self.frame)
         self.pushButton_2.setObjectName("pushButton_2")
         self.gridLayout.addWidget(self.pushButton_2, 1, 3, 1, 1)
-        self.label = QtWidgets.QLabel(self.frame)
-        self.label.setObjectName("label")
-        self.gridLayout.addWidget(self.label, 0, 0, 1, 1)
         self.lineEdit_2 = QtWidgets.QLineEdit(self.frame)
         self.lineEdit_2.setEnabled(False)
         self.lineEdit_2.setObjectName("lineEdit_2")
         self.gridLayout.addWidget(self.lineEdit_2, 1, 2, 1, 1)
-        self.spinBox = QtWidgets.QSpinBox(self.frame)
-        self.spinBox.setMaximum(5000)
-        self.spinBox.setProperty("value", 400)
-        self.spinBox.setObjectName("spinBox")
-        self.gridLayout.addWidget(self.spinBox, 2, 3, 1, 1)
-        self.pushButton = QtWidgets.QPushButton(self.frame)
-        self.pushButton.setObjectName("pushButton")
-        self.gridLayout.addWidget(self.pushButton, 2, 0, 1, 1)
-        self.label_3 = QtWidgets.QLabel(self.frame)
-        self.label_3.setObjectName("label_3")
-        self.gridLayout.addWidget(self.label_3, 2, 2, 1, 1)
+        self.label_2 = QtWidgets.QLabel(self.frame)
+        self.label_2.setObjectName("label_2")
+        self.gridLayout.addWidget(self.label_2, 1, 0, 1, 1)
+        self.lineEdit = QtWidgets.QLineEdit(self.frame)
+        self.lineEdit.setObjectName("lineEdit")
+        self.gridLayout.addWidget(self.lineEdit, 0, 2, 1, 2)
+        self.label = QtWidgets.QLabel(self.frame)
+        self.label.setObjectName("label")
+        self.gridLayout.addWidget(self.label, 0, 0, 1, 1)
         self.verticalLayout.addWidget(self.frame)
+        self.frame_3 = QtWidgets.QFrame(self.centralwidget)
+        self.frame_3.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.frame_3.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_3.setObjectName("frame_3")
+        self.gridLayout_3 = QtWidgets.QGridLayout(self.frame_3)
+        self.gridLayout_3.setObjectName("gridLayout_3")
+        self.pushButton = QtWidgets.QPushButton(self.frame_3)
+        self.pushButton.setObjectName("pushButton")
+        self.gridLayout_3.addWidget(self.pushButton, 0, 0, 1, 1)
+        self.label_4 = QtWidgets.QLabel(self.frame_3)
+        self.label_4.setObjectName("label_4")
+        self.gridLayout_3.addWidget(self.label_4, 0, 2, 1, 1)
+        self.spinBox = QtWidgets.QSpinBox(self.frame_3)
+        self.spinBox.setMaximum(5000)
+        self.spinBox.setProperty("value", 50)
+        self.spinBox.setObjectName("spinBox")
+        self.gridLayout_3.addWidget(self.spinBox, 0, 3, 1, 1)
+        self.verticalLayout.addWidget(self.frame_3)
         self.listWidget = QtWidgets.QTextEdit(self.centralwidget)
         self.listWidget.setObjectName("listWidget")
         self.verticalLayout.addWidget(self.listWidget)
-        self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
+        self.frame_2 = QtWidgets.QFrame(self.centralwidget)
+        self.frame_2.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_2.setObjectName("frame_2")
+        self.gridLayout_2 = QtWidgets.QGridLayout(self.frame_2)
+        self.gridLayout_2.setObjectName("gridLayout_2")
+        self.pushButton_4 = QtWidgets.QPushButton(self.frame_2)
+        self.pushButton_4.setObjectName("pushButton_4")
+        self.gridLayout_2.addWidget(self.pushButton_4, 0, 0, 1, 1)
+        self.pushButton_3 = QtWidgets.QPushButton(self.frame_2)
         self.pushButton_3.setObjectName("pushButton_3")
-        self.verticalLayout.addWidget(self.pushButton_3)
+        self.gridLayout_2.addWidget(self.pushButton_3, 0, 1, 1, 1)
+        self.verticalLayout.addWidget(self.frame_2)
         MainWindow.setCentralWidget(self.centralwidget)
-
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Hidden diretcory explorer V1.0"))
-        self.label_3.setText(_translate("MainWindow", "                                                                              Threads"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.pushButton_2.setText(_translate("MainWindow", "Loc"))
-        self.pushButton.setText(_translate("MainWindow", "HEADER"))
+        self.lineEdit_2.setPlaceholderText(_translate("MainWindow", "~/Desktop"))
         self.label_2.setText(_translate("MainWindow", "List dirs"))
         self.lineEdit.setPlaceholderText(_translate("MainWindow", "https://www.mahmoud.co"))
-        self.lineEdit_2.setPlaceholderText(_translate("MainWindow", "~/Desktop"))
         self.label.setText(_translate("MainWindow", "Url"))
+        self.pushButton.setText(_translate("MainWindow", "HEADER"))
+        self.label_4.setText(_translate("MainWindow", "Threads"))
+        self.pushButton_4.setText(_translate("MainWindow", "SAVE"))
         self.pushButton_3.setText(_translate("MainWindow", "START"))
         self.pushButton_2.clicked.connect(self.loadDialog)
         self.pushButton_3.clicked.connect(self.startScanning)
+        self.pushButton_4.clicked.connect(self.saveData)
         self.pushButton.clicked.connect(self.viewingHeaderScreen)
         self.header = None
-        #self.listWidget.setEnabled(False)
+    def saveData(self):
+        placeOfrepO = QtWidgets.QFileDialog.getSaveFileName(None,'report path','~/Desktop',filter=".txt")
+        if placeOfrepO[0]:
+            with open(f"{placeOfrepO[0]}.txt", 'a+') as ff:
+                ff.write(self.listWidget.toPlainText())
+                ff.close()
+            self.showInfo("I've done")
     def viewingHeaderScreen(self):
         header_dialog = viewingHeaderSettings()
         result = header_dialog.exec_()
@@ -161,6 +182,7 @@ class Ui_MainWindow(object):
         self.showMSg.show()
     def startScanning(self):
         if re.match(r'https?://w?w?w?\.?[a-z-A-z-A-Z-0-9]+\.?\-?[a-z-0-9]+', self.lineEdit.text()):
+            self.listWidget.clear()
             if self.lineEdit_2.text():
                 with open(self.lineEdit_2.text() , 'r') as file:
                     dirs = []
@@ -179,7 +201,6 @@ class Ui_MainWindow(object):
         else:
             self.showError("Invaled url\nhttps://www.example.com/")
     def on_server_thread_done(self, result):
-        self.listWidget.clear()
         self.listWidget.append(result)
     
 class viewingHeaderSettings(QtWidgets.QDialog):
