@@ -136,7 +136,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Hidden dir explorer V1.0"))
         self.pushButton_2.setText(_translate("MainWindow", "Loc"))
         self.lineEdit_2.setPlaceholderText(_translate("MainWindow", "~/Desktop"))
         self.label_2.setText(_translate("MainWindow", "List dirs"))
